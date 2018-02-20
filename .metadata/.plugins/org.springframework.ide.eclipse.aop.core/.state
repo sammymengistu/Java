@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="belt"/>
+<aop-project name="GroupLanguage"/>
+<aop-project name="admindashboard"/>
+<aop-project name="DojoNinjas"/>
+<aop-project name="DriverLicense"/>
+<aop-project name="loginregister"/>
+<aop-project name="Lookify"/>
+<aop-project name="javabelt"/>
+<aop-project name="auth"/>
+</aop-reference-model>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.sam.NinjaGold.controllers.HomeVontroller&apos; to &apos;HomeController&apos;&#x0A;- Original project: &apos;NinjaGold&apos;&#x0A;- Original element: &apos;com.sam.NinjaGold.controllers.HomeVontroller&apos;&#x0A;- Renamed element: &apos;com.sam.NinjaGold.controllers.HomeController&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;HomeVontroller&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.sam.NinjaGold.controllers{HomeVontroller.java[HomeVontroller" matchStrategy="1" name="HomeController" qualified="false" references="true" similarDeclarations="false" stamp="1516722186293" textual="false" version="1.0"/>
+</session>

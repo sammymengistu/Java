@@ -1,0 +1,151 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Admin Dashboard</title>
+</head>
+<body>
+<div align="center">
+		<form id="logoutForm" method="POST" action="/logout">
+        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        		 <input style= "background-color: #999966; width:100px; height:40px" type="submit" value="Logout"/>
+    		</form>
+	<h1>Admin Dashboard</h1>
+	<div>
+		<h2>Custormers</h2>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Next Due Date</th>
+				<th>Amount Due</th>
+				<th>Package Type</th>
+			</tr>
+			<c:forEach items = "${ currentUsers }" var = "user">
+			<tr>
+					<c:forEach items = "${ user.roles }" var = "role">
+						<c:if test="${ role.getName() == 'ROLE_USER' }">
+							<td><c:out value="${ user.firstname }" /></td>
+							<td><c:out value="${ user.dueDate }" /></td>
+							<td><c:out value="${ user.getPack().cost }" /></td>
+							<td><c:out value="${ user.getPack().getName() }" /></td>
+						</c:if>
+					</c:forEach>
+				
+			</tr>
+			</c:forEach>
+		</table>
+	</div>
+	<div>
+		<h2>Packages</h2>
+		<table>
+			<tr>
+				<th>Package Name</th>
+				<th>Package Cost</th>
+				<th>Avilable</th>
+				<th>Users</th>
+				<th>Actions</th>
+			</tr>
+			<c:forEach items = "${ allsubs }" var = "pack">
+			<tr>
+				<td><c:out value="${ sub.name }" /></td>
+				<td>$<c:out value="${ sub.cost }" /></td>
+				
+				<td>
+					<c:if test="${ sub.status == true }">
+						Available
+					</c:if>
+					<c:if test="${ sub.status == false }">
+						Unavilable
+					</c:if>
+				
+				<td><c:out value="${ sub.getNumUsers() }" /></td>
+				
+				<td>
+					<c:if test="${ sub.status == true }">
+						<a href = "/admin/deactivate/${ sub.id }">deactivate</a>
+						<c:if test = "${ sub.getNumUsers() == 0 }" >
+							<a href = "/pack/delete/${ pack.id }">delete</a> 
+						</c:if>
+					</c:if>
+					<c:if test="${ sub.status == false }">
+						<a href = "/admin/activate/${ sub.id }">activate</a>
+						<c:if test = "${ sub.getNumUsers() == 0 }" >
+							<a href = "/pack/delete/${ sub.id }">delete</a> 
+						</c:if>
+					</c:if>
+				</td>
+			</tr>
+			</c:forEach>
+			<tr></tr>
+		</table>
+	</div>
+	<div>
+		<table class = "table">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+			<c:forEach items = "${ currentUsers }" var = "user">
+				<tr>
+					<td><c:out value="${ user.firstname }" /></td>
+					<td><c:out value="${ user.email}" /> </td>
+					<td>
+						<c:forEach items = "${ user.roles }" var = "role">
+							<c:if test="${ role.getName() == 'ROLE_ADMIN' }">
+								Admin
+							</c:if>
+							<c:if test="${ role.getName() == 'ROLE_USER' }">
+								<a href = "/user/delete/${ user.id }">delete</a> &nbsp; <a href = "/user/edit/${ user.id }">make-admin</a>
+							</c:if>
+						</c:forEach>
+					</td>
+				</tr>
+			</c:forEach>
+		</table><br>
+		
+	</div>
+	
+	<div>	
+		<form:form action = "/admin/newPackage" method = "POST" modelAttribute = "pack">
+			<table frame="box">
+				<legend>Create Subs</legend>
+				<p>
+					<form:label path = "name">Subs Name: </form:label> 
+					<form:input path = "name" />
+				</p>
+				<p>
+					<form:label path = "cost">Cost: </form:label> 
+					 <form:input type = "number" min = "0" path = "cost" />
+				</p>
+				<p>
+					 <input style= "background-color: #999966; width:200px; height:40px" type="submit" value="Create a New Page"/>
+			</table>
+		</form:form>
+	</div>
+</div>
+</body>
+</html>
+
+
+<style>
+
+/* fieldset { 
+
+width:
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+ */
+
+</style>
